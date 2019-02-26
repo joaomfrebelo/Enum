@@ -1,10 +1,10 @@
 # Enum
 
-Enum is a work arround to work with Enumeration on PHP
+Enum is a workaround to work with Enumeration on PHP
 
 ## Example
 ```
-```php
+``` php
 /**
  * The enumeration class
  */
@@ -38,6 +38,15 @@ $foo = new foo();
 $foo->myMethod(new MyExample(MyExample::EXAMPLE_1));
 
 ```
+## Install
+
+Via Composer
+
+```bash
+$ composer require joaomfrebelo/enum
+```
+
+
 ## License
 Copyright (c) 2019 João M F Rebelo
 
