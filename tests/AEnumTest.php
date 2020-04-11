@@ -68,8 +68,7 @@ class AEnumTest
      */
     public function testGetValueOfConstant()
     {
-        $this->assertEquals(MyEnum::ENUM_1,
-                            $this->object->getValue("ENUM_1"));
+        $this->assertEquals(MyEnum::ENUM_1, $this->object->getValue("ENUM_1"));
     }
 
     /**
@@ -77,8 +76,7 @@ class AEnumTest
      */
     public function testGetName()
     {
-        $this->assertEquals("ENUM_1",
-                            $this->object->getName(MyEnum::ENUM_1));
+        $this->assertEquals("ENUM_1", $this->object->getName(MyEnum::ENUM_1));
     }
 
     /**
@@ -96,8 +94,17 @@ class AEnumTest
     public function testGetValue()
     {
         $myEnum = new MyEnum(MyEnum::ENUM_2);
-        $this->assertEquals(MyEnum::ENUM_2,
-                            $myEnum->get());
+        $this->assertEquals(MyEnum::ENUM_2, $myEnum->get());
+    }
+
+    public function testIsEqualAndNotEqual()
+    {
+        $myEnum  = new MyEnum(MyEnum::ENUM_2);
+        $myClone = clone $myEnum;
+        $this->assertTrue($myEnum->isEqual($myClone));
+        $this->assertFalse($myEnum->isNotEqual($myClone));
+        $this->assertTrue($myEnum->isEqual(MyEnum::ENUM_2));
+        $this->assertFalse($myEnum->isNotEqual(MyEnum::ENUM_2));
     }
 
 }

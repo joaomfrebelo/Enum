@@ -32,6 +32,7 @@ namespace Rebelo\Enum;
  * @link http://stackoverflow.com/questions/254514/php-and-enumerations
  *
  * @author João Rebelo
+ * @since 1.0.0
  */
 abstract class AEnum
 {
@@ -41,9 +42,17 @@ abstract class AEnum
      * The value initialized in enumertion
      *
      * @var Mixed
+     * @since 1.0.0
      */
     protected $value = null;
 
+    /**
+     *
+     * @param type $value
+     * @return type
+     * @throws EnumException
+     * @since 1.0.0
+     */
     public function __construct($value)
     {
         if (\is_scalar($value))
@@ -66,6 +75,7 @@ abstract class AEnum
     /**
      * Cache of constants
      * @var string[]
+     * @since 1.0.0
      */
     protected static $constCacheArray = null;
 
@@ -74,6 +84,7 @@ abstract class AEnum
      * Get constants
      *
      * @return string[]
+     * @since 1.0.0
      */
     protected static function getConstants(): array
     {
@@ -83,8 +94,7 @@ abstract class AEnum
         }
 
         $calledClass = \get_called_class();
-        if (!\array_key_exists($calledClass,
-                               static::$constCacheArray))
+        if (!\array_key_exists($calledClass, static::$constCacheArray))
         {
             $reflect                               = new \ReflectionClass($calledClass);
             static::$constCacheArray[$calledClass] = $reflect->getConstants();
@@ -100,6 +110,7 @@ abstract class AEnum
      * @param  mixed $name
      * @param  bool  $strict
      * @return bool
+     * @since 1.0.0
      */
     public static function isValidName($name, $strict = false): bool
     {
@@ -118,14 +129,11 @@ abstract class AEnum
 
         if ($strict)
         {
-            return \array_key_exists($name,
-                                     $constants);
+            return \array_key_exists($name, $constants);
         }
 
-        $keys = \array_map('strtolower',
-                           array_keys($constants));
-        return \in_array(strtolower($name),
-                                    $keys);
+        $keys = \array_map('strtolower', array_keys($constants));
+        return \in_array(strtolower($name), $keys);
     }
 
     /**
@@ -134,6 +142,7 @@ abstract class AEnum
      * @param  mixed $value
      * @param  bool  $strict
      * @return bool
+     * @since 1.0.0
      */
     public static function isValidValue($value, $strict = true): bool
     {
@@ -149,9 +158,7 @@ abstract class AEnum
             );
         }
         $values = \array_values(static::getConstants());
-        return \in_array($value,
-                         $values,
-                         $strict);
+        return \in_array($value, $values, $strict);
     }
 
     /**
@@ -162,19 +169,18 @@ abstract class AEnum
      * @param  boolean $strict
      * @return mixed
      * @throws \Exception
+     * @since 1.0.0
      */
     public static function getValue(string $constName)
     {
         $const = static::getConstants();
-        if (\array_key_exists($constName,
-                              $const) === true)
+        if (\array_key_exists($constName, $const) === true)
         {
             return $const[$constName];
         }
         throw new EnumException(
             \sprintf(
-                'Value "%s" doesn\'t exist',
-                $constName
+                'Value "%s" doesn\'t exist', $constName
             )
         );
     }
@@ -186,6 +192,7 @@ abstract class AEnum
      * @param  bool   $strict
      * @return string
      * @throws EnumException
+     * @since 1.0.0
      */
     public static function getName(string $value, bool $strict = false): string
     {
@@ -209,10 +216,37 @@ abstract class AEnum
      * Get the value seted in teh enumeration
      *
      * @return Scalar
+     * @since 1.0.0
      */
     public function get()
     {
         return $this->value;
+    }
+
+    /**
+     * Verify if the value is equals
+     * @param AEnum|scalar $value
+     * @return bool
+     * @since 1.1.0
+     */
+    public function isEqual($value): bool
+    {
+        if ($value instanceof $this)
+        {
+            return $value->get() === $this->get();
+        }
+        return $value === $this->get();
+    }
+
+    /**
+     * Verifi if the value in not equal
+     * @param AEnum|scalar $value
+     * @return bool
+     * @since 1.1.0
+     */
+    public function isNotEqual($value): bool
+    {
+        return !$this->isEqual($value);
     }
 
 }
