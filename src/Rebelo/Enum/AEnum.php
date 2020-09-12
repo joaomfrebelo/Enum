@@ -249,4 +249,17 @@ abstract class AEnum
         return !$this->isEqual($value);
     }
 
+    /**
+     *
+     * @param String $name
+     * @param type $arguments
+     */
+    public static function __callStatic($name, $arguments)
+    {
+        if (\count($arguments) > 0) {
+            throw new EnumException("No argument should be passed to instanciate the enum");
+        }
+        $obj = get_called_class();
+        return new $obj($name);
+    }
 }

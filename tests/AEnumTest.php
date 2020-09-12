@@ -107,4 +107,18 @@ class AEnumTest
         $this->assertFalse($myEnum->isNotEqual(MyEnum::ENUM_2));
     }
 
+    public function testCallStatic()
+    {
+        $enum = MyEnum::ENUM_1();
+        $this->assertInstanceOf(
+            MyEnum::class, $enum
+        );
+        $this->assertSame(MyEnum::ENUM_1, $enum->get());
+    }
+
+    public function testCallStaticArg()
+    {
+        $this->expectException(\Rebelo\Enum\EnumException::class);
+        $enum = MyEnum::ENUM_1("a");
+    }
 }
