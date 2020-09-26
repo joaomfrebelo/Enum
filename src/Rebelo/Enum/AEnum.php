@@ -48,8 +48,7 @@ abstract class AEnum
 
     /**
      *
-     * @param type $value
-     * @return type
+     * @param Mixed $value
      * @throws EnumException
      * @since 1.0.0
      */
@@ -64,7 +63,7 @@ abstract class AEnum
             }
             elseif (static::isValidName($value))
             {
-                $this->value = static::getValue($value);
+                $this->value = static::getValue((string) $value);
                 return;
             }
         }
@@ -74,7 +73,7 @@ abstract class AEnum
 
     /**
      * Cache of constants
-     * @var string[]
+     * @var array<string, array<int, string>>|null
      * @since 1.0.0
      */
     protected static $constCacheArray = null;
@@ -112,19 +111,8 @@ abstract class AEnum
      * @return bool
      * @since 1.0.0
      */
-    public static function isValidName($name, $strict = false): bool
+    public static function isValidName($name, bool $strict = false): bool
     {
-        if (\is_bool($strict) == false)
-        {
-            throw new \InvalidArgumentException(
-                sprintf(
-                    'Expecting a scalar boolean , received "%s"',
-                    (is_object($strict)
-                        ? get_class($strict)
-                        : gettype($strict))
-                )
-            );
-        }
         $constants = static::getConstants();
 
         if ($strict)
@@ -144,19 +132,8 @@ abstract class AEnum
      * @return bool
      * @since 1.0.0
      */
-    public static function isValidValue($value, $strict = true): bool
+    public static function isValidValue($value, bool $strict = true): bool
     {
-        if (is_bool($strict) == false)
-        {
-            throw new \InvalidArgumentException(
-                sprintf(
-                    'Expecting a scalar boolean , received "%s"',
-                    (is_object($strict)
-                        ? get_class($strict)
-                        : gettype($strict))
-                )
-            );
-        }
         $values = \array_values(static::getConstants());
         return \in_array($value, $values, $strict);
     }
@@ -166,7 +143,6 @@ abstract class AEnum
      * (Value for the constant name)
      *
      * @param  string  $constName
-     * @param  boolean $strict
      * @return mixed
      * @throws \Exception
      * @since 1.0.0
@@ -252,14 +228,26 @@ abstract class AEnum
     /**
      *
      * @param String $name
-     * @param type $arguments
+     * @param array $arguments
+     * @return object
+     * @since 1.1.1
      */
-    public static function __callStatic($name, $arguments)
+    public static function __callStatic(string $name, array $arguments)
     {
         if (\count($arguments) > 0) {
             throw new EnumException("No argument should be passed to instanciate the enum");
         }
         $obj = get_called_class();
         return new $obj($name);
+    }
+
+    /**
+     *
+     * @return string
+     * @since 2.0.0
+     */
+    public function __toString()
+    {
+        return (string) $this->value;
     }
 }

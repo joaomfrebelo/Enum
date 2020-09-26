@@ -1,0 +1,11 @@
+parameters:
+	level: 7
+	checkMissingIterableValueType: false
+	paths:
+		- src
+		- tests
+	ignoreErrors:
+		- '#Instantiated class Rebelo\\Enum\\AEnum is abstract#'
+		- '#Static call to instance method Rebelo\\Test\\Enum\\MyEnum::ENUM_1\(\)#'
+	excludes_analyse:
+		

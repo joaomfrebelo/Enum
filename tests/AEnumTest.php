@@ -10,31 +10,23 @@ class AEnumTest
 {
 
     /**
-     * @var AEnum
+     * @var \Rebelo\Enum\AEnum
      */
-    protected $object;
+    protected \Rebelo\Enum\AEnum $object;
 
     /**
      * Initialization of AEnum in an anonymous class
+     * @return void
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->object = new MyEnum(MyEnum::ENUM_1);
     }
 
     /**
-     * Tears down the fixture, for example, closes a network connection.
-     * This method is called after a test is executed.
-     */
-    protected function tearDown()
-    {
-
-    }
-
-    /**
      * @covers \Rebelo\Enum\AEnum::isValidName
      */
-    public function testIsValidNameTrue()
+    public function testIsValidNameTrue(): void
     {
         $this->assertTrue($this->object->isValidName("ENUM_1"));
     }
@@ -42,7 +34,7 @@ class AEnumTest
     /**
      * @covers \Rebelo\Enum\AEnum::isValidName
      */
-    public function testIsValidNameFalse()
+    public function testIsValidNameFalse(): void
     {
         $this->assertFalse($this->object->isValidName("ENUM_A"));
     }
@@ -50,7 +42,7 @@ class AEnumTest
     /**
      * @covers \Rebelo\Enum\AEnum::isValidValue
      */
-    public function testIsValidValueTrue()
+    public function testIsValidValueTrue(): void
     {
         $this->assertTrue($this->object->isValidValue(MyEnum::ENUM_1));
     }
@@ -58,7 +50,7 @@ class AEnumTest
     /**
      * @covers \Rebelo\Enum\AEnum::isValidValue
      */
-    public function testIsValidValueFalse()
+    public function testIsValidValueFalse(): void
     {
         $this->assertFalse($this->object->isValidValue("ENUM_A"));
     }
@@ -66,7 +58,7 @@ class AEnumTest
     /**
      * @covers \Rebelo\Enum\AEnum::getValue
      */
-    public function testGetValueOfConstant()
+    public function testGetValueOfConstant(): void
     {
         $this->assertEquals(MyEnum::ENUM_1, $this->object->getValue("ENUM_1"));
     }
@@ -74,7 +66,7 @@ class AEnumTest
     /**
      * @covers \Rebelo\Enum\AEnum::getName
      */
-    public function testGetName()
+    public function testGetName(): void
     {
         $this->assertEquals("ENUM_1", $this->object->getName(MyEnum::ENUM_1));
     }
@@ -82,7 +74,7 @@ class AEnumTest
     /**
      *
      */
-    public function testWrongInit()
+    public function testWrongInit(): void
     {
         $this->expectException(\Rebelo\Enum\EnumException::class);
         new MyEnum("wrong_value");
@@ -91,13 +83,13 @@ class AEnumTest
     /**
      * @covers \Rebelo\Enum\AEnum::get()
      */
-    public function testGetValue()
+    public function testGetValue(): void
     {
         $myEnum = new MyEnum(MyEnum::ENUM_2);
         $this->assertEquals(MyEnum::ENUM_2, $myEnum->get());
     }
 
-    public function testIsEqualAndNotEqual()
+    public function testIsEqualAndNotEqual(): void
     {
         $myEnum  = new MyEnum(MyEnum::ENUM_2);
         $myClone = clone $myEnum;
@@ -107,7 +99,7 @@ class AEnumTest
         $this->assertFalse($myEnum->isNotEqual(MyEnum::ENUM_2));
     }
 
-    public function testCallStatic()
+    public function testCallStatic(): void
     {
         $enum = MyEnum::ENUM_1();
         $this->assertInstanceOf(
@@ -116,9 +108,15 @@ class AEnumTest
         $this->assertSame(MyEnum::ENUM_1, $enum->get());
     }
 
-    public function testCallStaticArg()
+    public function testCallStaticArg(): void
     {
         $this->expectException(\Rebelo\Enum\EnumException::class);
-        $enum = MyEnum::ENUM_1("a");
+        MyEnum::ENUM_1("a");
+    }
+
+    public function testMagigMethodToString(): void
+    {
+        $enum = MyEnum::ENUM_1();
+        $this->assertSame(MyEnum::ENUM_1, $enum->__toString());
     }
 }
