@@ -207,7 +207,7 @@ abstract class AEnum
      */
     public function isEqual($value): bool
     {
-        if ($value instanceof $this)
+        if ($value instanceof AEnum)
         {
             return $value->get() === $this->get();
         }

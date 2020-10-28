@@ -10,10 +10,8 @@
             "email": "joaomfrebelo@gmail.com"
         }
     ],
-    "autoload": {
-        "psr-4": {
-            "Rebelo\\Enum\\": "src/Rebelo/Enum"
-        }
+    "autoload": {        
+            "classmap": ["src/"]
     },
     "license": "MIT",
     "prefer-stable": true,
@@ -25,5 +23,5 @@
         "phpunit/phpunit": "^9.3"
     },
     "homepage": "https://github.com/joaomfrebelo/Enum",
-    "version": "2.0.0"
+    "version": "2.0.1"
 }

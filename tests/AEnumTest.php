@@ -119,4 +119,27 @@ class AEnumTest
         $enum = MyEnum::ENUM_1();
         $this->assertSame(MyEnum::ENUM_1, $enum->__toString());
     }
+    
+    public function testEqualValueOfDirefentEnumClass() : void
+    {
+        $xEnum = new class extends \Rebelo\Enum\AEnum{
+            const A = "A";
+            
+            public function __construct()
+            {
+                $this->value = self::A;
+            }
+        };
+        
+        $yEnum = new class extends \Rebelo\Enum\AEnum{
+            const A = "A";
+            
+            public function __construct()
+            {
+                $this->value = self::A;
+            }
+        };
+        
+        $this->assertTrue($xEnum->isEqual($yEnum));
+    }
 }
