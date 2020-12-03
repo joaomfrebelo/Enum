@@ -7,5 +7,6 @@ parameters:
 	ignoreErrors:
 		- '#Instantiated class Rebelo\\Enum\\AEnum is abstract#'
 		- '#Static call to instance method Rebelo\\Test\\Enum\\MyEnum::ENUM_1\(\)#'
+		- '#Static call to instance method Rebelo\\Test\\Enum\\MyEnum::ENUM_2\(\)#'
 	excludes_analyse:
 		

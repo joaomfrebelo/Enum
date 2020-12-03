@@ -142,4 +142,48 @@ class AEnumTest
         
         $this->assertTrue($xEnum->isEqual($yEnum));
     }
+    
+    public function testInArray() : void
+    {
+        $enum = MyEnum::ENUM_1();
+        $this->assertTrue($enum->inArray([false, "C", MyEnum::ENUM_1, "A", 0]));
+        $this->assertTrue($enum->inArray([false, "C", MyEnum::ENUM_1(), "A", 0]));
+        $this->assertFalse($enum->inArray([false, "C", MyEnum::ENUM_2(), "A", 0]));
+        $this->assertFalse($enum->inArray([false, "C", "A", 0]));
+        $this->assertFalse($enum->inArray([]));
+        
+    }
+    
+    public function testNoInArray() : void
+    {
+        $enum = MyEnum::ENUM_1();
+        $this->assertFalse($enum->notInArray([false, "C", MyEnum::ENUM_1, "A", 0]));
+        $this->assertFalse($enum->notInArray([false, "C", MyEnum::ENUM_1(), "A", 0]));
+        $this->assertTrue($enum->notInArray([false, "C", MyEnum::ENUM_2(), "A", 0]));
+        $this->assertTrue($enum->notInArray([false, "C", "A", 0]));
+        $this->assertTrue($enum->notInArray([]));
+        
+    }
+    
+    public function testIn() : void
+    {
+        $enum = MyEnum::ENUM_1();
+        $this->assertTrue($enum->in(false, "C", MyEnum::ENUM_1, "A", 0));
+        $this->assertTrue($enum->in(false, "C", MyEnum::ENUM_1(), "A", 0));
+        $this->assertFalse($enum->in(false, "C", MyEnum::ENUM_2(), "A", 0));
+        $this->assertFalse($enum->in(false, "C", "A", 0));
+        $this->assertFalse($enum->in());
+        
+    }
+    
+    public function testNoIn() : void
+    {
+        $enum = MyEnum::ENUM_1();
+        $this->assertFalse($enum->notIn(false, "C", MyEnum::ENUM_1, "A", 0));
+        $this->assertFalse($enum->notIn(false, "C", MyEnum::ENUM_1(), "A", 0));
+        $this->assertTrue($enum->notIn(false, "C", MyEnum::ENUM_2(), "A", 0));
+        $this->assertTrue($enum->notIn(false, "C", "A", 0));
+        $this->assertTrue($enum->notIn());
+        
+    }
 }

@@ -27,8 +27,8 @@ namespace Rebelo\Test\Enum;
 
 /**
  * Generic Enum class
- * @method ENUM_1()
- * @method ENUM_2()
+ * @method \Rebelo\Test\Enum\MyEnum ENUM_1()
+ * @method \Rebelo\Test\Enum\MyEnum ENUM_2()
  * @author João Rebelo
  */
 class MyEnum

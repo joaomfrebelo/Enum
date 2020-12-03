@@ -23,5 +23,5 @@
         "phpunit/phpunit": "^9.3"
     },
     "homepage": "https://github.com/joaomfrebelo/Enum",
-    "version": "2.0.1"
+    "version": "2.0.2"
 }

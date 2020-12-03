@@ -250,4 +250,54 @@ abstract class AEnum
     {
         return (string) $this->value;
     }
+    
+    /**
+     * Search in the array if this value or enum exists
+     * @param array $array
+     * @return bool
+     * @since 2.0.2
+     */
+    public function inArray(array $array) : bool
+    {
+        foreach($array as $elem){
+            if($this->isEqual($elem)){
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    /**
+     * Search in the array if this value or enum not exists
+     * @param array $array
+     * @return bool
+     * @since 2.0.2
+     */
+    public function notInArray(array $array) : bool
+    {
+        return !$this->inArray($array);
+    }
+    
+    /**
+     * Search in the splat if this value or enum not exists
+     * @param mixed $value
+     * @return bool
+     * @since 2.0.2
+     */
+    public function in(... $value) : bool
+    {
+        return $this->inArray($value);
+    }
+    
+    /**
+     * Search in the array if this value or enum exists
+     * @param mixed $value
+     * @return bool
+     * @since 2.0.2
+     */
+    public function notIn(... $value) : bool
+    {
+        return $this->notInArray($value);
+    }
+    
 }
