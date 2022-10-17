@@ -29,21 +29,20 @@ namespace Rebelo\Enum;
  * Exception to be used in enum class
  */
 class EnumException
-    extends \Exception
+	extends \Exception
 {
 
-    /**
-     * 
-     * @param String $message
-     * @param int $code
-     * @param \Throwable $previous
-     */
-    public function __construct($message = "", $code = 0,
-                                \Throwable $previous = NULL)
-    {
-        parent::__construct($message,
-                            $code,
-                            $previous);
-    }
+	/**
+	 *
+	 * @param String          $message
+	 * @param int             $code
+	 * @param \Throwable|null $previous
+	 */
+	public function __construct($message = "", $code = 0, \Throwable $previous = NULL)
+	{
+		parent::__construct($message,
+							$code,
+							$previous);
+	}
 
 }

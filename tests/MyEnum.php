@@ -25,14 +25,15 @@ declare(strict_types=1);
 
 namespace Rebelo\Test\Enum;
 
+use Rebelo\Enum\AEnum;
+
 /**
  * Generic Enum class
  * @method \Rebelo\Test\Enum\MyEnum ENUM_1()
  * @method \Rebelo\Test\Enum\MyEnum ENUM_2()
  * @author João Rebelo
  */
-class MyEnum
-    extends \Rebelo\Enum\AEnum
+class MyEnum extends AEnum
 {
 
     const ENUM_1 = "enum_1";
