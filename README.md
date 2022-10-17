@@ -3,8 +3,7 @@
 Enum is a workaround to work with Enumeration on PHP
 
 ## Example
-```
-``` php
+```php
 /**
  * The enumeration class
  */
