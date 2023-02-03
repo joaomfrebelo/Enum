@@ -41,31 +41,31 @@ abstract class AEnum
 	 *
 	 * The value initialized in enumeration
 	 *
-	 * @var Mixed
 	 * @since 1.0.0
 	 */
-	protected $value = null;
+	protected string|int|float|bool $value;
 
 	/**
 	 *
-	 * @param Mixed $value
+	 * @param string|int|float|bool $value
 	 * @throws EnumException
+	 * @throws \ReflectionException
 	 * @throws \Exception
 	 * @since 1.0.0
 	 */
-	public function __construct($value)
+	public function __construct(string|int|float|bool $value)
 	{
-		if (\is_scalar($value)) {
-			if (static::isValidValue($value)) {
-				$this->value = $value;
-				return;
-			} elseif (static::isValidName($value)) {
-				$this->value = static::getValue((string)$value);
-				return;
-			}
+		if (static::isValidValue($value)) {
+			$this->value = $value;
+			return;
+		} elseif (\is_string($value) && static::isValidName($value)) {
+			$this->value = static::getValue($value);
+			return;
 		}
-		throw new EnumException("Value in Enum class " . \get_called_class()
-								. " is not valid");
+
+		throw new EnumException(
+			"Value in Enum class " . \get_called_class() . " is not valid"
+		);
 	}
 
 	/**
@@ -102,13 +102,13 @@ abstract class AEnum
 	 *  Verify if the name exist
 	 * (Verify if the const name exist)
 	 *
-	 * @param mixed $name
-	 * @param bool  $strict
+	 * @param string $name
+	 * @param bool $strict
 	 * @return bool
 	 * @throws \ReflectionException
 	 * @since 1.0.0
 	 */
-	public static function isValidName($name, bool $strict = false): bool
+	public static function isValidName(string $name, bool $strict = false): bool
 	{
 		$constants = static::getConstants();
 
@@ -123,13 +123,13 @@ abstract class AEnum
 	/**
 	 * Verify if the value exist in any constant
 	 *
-	 * @param mixed $value
-	 * @param bool  $strict
+	 * @param string|int|float|bool $value
+	 * @param bool $strict
 	 * @return bool
 	 * @throws \ReflectionException
 	 * @since 1.0.0
 	 */
-	public static function isValidValue($value, bool $strict = true): bool
+	public static function isValidValue(string|int|float|bool $value, bool $strict = true): bool
 	{
 		$values = \array_values(static::getConstants());
 		return \in_array($value, $values, $strict);
@@ -144,7 +144,7 @@ abstract class AEnum
 	 * @throws \Exception
 	 * @since 1.0.0
 	 */
-	public static function getValue(string $constName)
+	public static function getValue(string $constName): string
 	{
 		$const = static::getConstants();
 		if (\array_key_exists($constName, $const) === true) {
@@ -161,7 +161,7 @@ abstract class AEnum
 	 * Get the constant name for the value
 	 *
 	 * @param string $value
-	 * @param bool   $strict
+	 * @param bool $strict
 	 * @return string
 	 * @throws EnumException
 	 * @throws \ReflectionException
@@ -188,18 +188,18 @@ abstract class AEnum
 	 * @return Scalar
 	 * @since 1.0.0
 	 */
-	public function get()
+	public function get(): float|bool|int|string
 	{
 		return $this->value;
 	}
 
 	/**
 	 * Verify if the value is equals
-	 * @param AEnum|scalar $value
+	 * @param scalar|AEnum $value
 	 * @return bool
 	 * @since 1.1.0
 	 */
-	public function isEqual($value): bool
+	public function isEqual(float|AEnum|bool|int|string $value): bool
 	{
 		if ($value instanceof AEnum) {
 			return $value->get() === $this->get();
@@ -209,11 +209,11 @@ abstract class AEnum
 
 	/**
 	 * Verify if the value in not equal
-	 * @param AEnum|scalar $value
+	 * @param scalar|AEnum $value
 	 * @return bool
 	 * @since 1.1.0
 	 */
-	public function isNotEqual($value): bool
+	public function isNotEqual(float|AEnum|bool|int|string $value): bool
 	{
 		return !$this->isEqual($value);
 	}
@@ -221,7 +221,7 @@ abstract class AEnum
 	/**
 	 *
 	 * @param String $name
-	 * @param array  $arguments
+	 * @param array $arguments
 	 * @return object
 	 * @throws \Rebelo\Enum\EnumException
 	 * @since 1.1.1

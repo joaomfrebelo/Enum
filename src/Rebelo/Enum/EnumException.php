@@ -34,15 +34,17 @@ class EnumException
 
 	/**
 	 *
-	 * @param String          $message
-	 * @param int             $code
+	 * @param String $message
+	 * @param int $code
 	 * @param \Throwable|null $previous
 	 */
-	public function __construct($message = "", $code = 0, \Throwable $previous = NULL)
+	public function __construct(string $message = "", int $code = 0, \Throwable $previous = NULL)
 	{
-		parent::__construct($message,
-							$code,
-							$previous);
+		parent::__construct(
+			$message,
+			$code,
+			$previous
+		);
 	}
 
 }

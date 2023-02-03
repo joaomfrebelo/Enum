@@ -16,12 +16,11 @@
     "license": "MIT",
     "prefer-stable": true,
     "require": {
-        "php": "^7.4 || ^8.0 || ^8.1"
+        "php": "8.0.* || 8.1.* || 8.2.*"
     },
     "require-dev": {
         "phpstan/phpstan": "^0.12",
         "phpunit/phpunit": "^9.5"
     },
-    "homepage": "https://github.com/joaomfrebelo/Enum",
-    "version": "2.0.4"
+    "homepage": "https://github.com/joaomfrebelo/Enum"
 }
