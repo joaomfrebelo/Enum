@@ -41,17 +41,19 @@ class AEnumTest extends TestCase
         $this->assertFalse($this->object->isValidName("ENUM_A"));
     }
 
-    /**
-     * @covers \Rebelo\Enum\AEnum::isValidValue
-     */
+	/**
+	 * @covers \Rebelo\Enum\AEnum::isValidValue
+	 * @throws \ReflectionException
+	 */
     public function testIsValidValueTrue(): void
     {
         $this->assertTrue($this->object->isValidValue(MyEnum::ENUM_1));
     }
 
-    /**
-     * @covers \Rebelo\Enum\AEnum::isValidValue
-     */
+	/**
+	 * @covers \Rebelo\Enum\AEnum::isValidValue
+	 * @throws \ReflectionException
+	 */
     public function testIsValidValueFalse(): void
     {
         $this->assertFalse($this->object->isValidValue("ENUM_A"));
@@ -113,10 +115,10 @@ class AEnumTest extends TestCase
     public function testCallStaticArg(): void
     {
         $this->expectException(\Rebelo\Enum\EnumException::class);
-        MyEnum::ENUM_1("a");
+		MyEnum::ENUM_1("a");
     }
 
-    public function testMagigMethodToString(): void
+    public function testMagicMethodToString(): void
     {
         $enum = MyEnum::ENUM_1();
         $this->assertSame(MyEnum::ENUM_1, $enum->__toString());

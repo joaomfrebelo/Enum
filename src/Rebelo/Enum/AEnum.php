@@ -70,7 +70,8 @@ abstract class AEnum
 
 	/**
 	 * Cache of constants
-	 * @var array<string, array<int, string>>|null
+	 *
+	 * @var array<string, array<int|string, mixed>>|null
 	 * @since 1.0.0
 	 */
 	protected static ?array $constCacheArray = null;
@@ -221,12 +222,12 @@ abstract class AEnum
 	/**
 	 *
 	 * @param String $name
-	 * @param array $arguments
+	 * @param mixed[] $arguments
 	 * @return object
 	 * @throws \Rebelo\Enum\EnumException
 	 * @since 1.1.1
 	 */
-	public static function __callStatic(string $name, array $arguments)
+	public static function __callStatic(string $name, array $arguments): mixed
 	{
 		if (\count($arguments) > 0) {
 			throw new EnumException("No argument should be passed to instantiate the enum");
@@ -247,7 +248,7 @@ abstract class AEnum
 
 	/**
 	 * Search in the array if this value or enum exists
-	 * @param array $array
+	 * @param mixed[] $array
 	 * @return bool
 	 * @since 2.0.2
 	 */
@@ -263,7 +264,7 @@ abstract class AEnum
 
 	/**
 	 * Search in the array if this value or enum not exists
-	 * @param array $array
+	 * @param mixed[] $array
 	 * @return bool
 	 * @since 2.0.2
 	 */
